@@ -11,3 +11,10 @@ after_success:
   - docker build -t chloe101/multi-nginx ./nginx
   - docker build -t chloe101/multi-server ./server
   - docker build -t chloe101/multi-worker ./worker
+  #login to docker CLI - add username and password to env variables on travis so can't be seen in script
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # push images to DockerHub
+  - docker push chloe101/multi-client 
+  - docker push chloe101/multi-nginx 
+  - docker push chloe101/multi-server 
+  - docker push chloe101/multi-worker
